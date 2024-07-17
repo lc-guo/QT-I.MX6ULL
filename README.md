@@ -124,3 +124,9 @@ sudo umount tempdir
 ## 3、从 SD 卡启动开发板
 
 将启动方式拨码开关设置为从SD卡启动，插入SD卡然后打开电源，观察终端输出，一切正常会自动启动桌面程序
+
+## 4、参考资料
+
+1.  [IMX6ULL-QT项目之mplayer音乐播放器](https://blog.csdn.net/qq_40792874/article/details/120564555)
+2. [【正点原子】I.MX6U嵌入式Qt开发指南V1.1](https://gitee.com/GuangzhouXingyi/imx6ull-document)
+3. [【正点原子】I.MX6U嵌入式Linux驱动开发指南V1.81](https://gitee.com/GuangzhouXingyi/imx6ull-document)
