@@ -130,3 +130,4 @@ sudo umount tempdir
 1.  [IMX6ULL-QT项目之mplayer音乐播放器](https://blog.csdn.net/qq_40792874/article/details/120564555)
 2. [【正点原子】I.MX6U嵌入式Qt开发指南V1.1](https://gitee.com/GuangzhouXingyi/imx6ull-document)
 3. [【正点原子】I.MX6U嵌入式Linux驱动开发指南V1.81](https://gitee.com/GuangzhouXingyi/imx6ull-document)
+4. [Linux相机小项目](https://gitee.com/chenshao777/linux-camera-mini-project)
