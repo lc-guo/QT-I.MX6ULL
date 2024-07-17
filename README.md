@@ -78,7 +78,7 @@ sudo mkfs -t ext4 /dev/sdb2
 
 最终 SD 卡内部分区应该如下图所示
 
-![[linux_sd_startup.png]]
+![linux_sd_startup.png](https://github.com/lc-guo/QT-I.MX6ULL/blob/main/linux_sd_startup.png)
 
 将 U-Boot 目录中的 `u-boot.bin` 使用 `imxdownload` 工具烧录到 SD 卡的第一个分区
 
