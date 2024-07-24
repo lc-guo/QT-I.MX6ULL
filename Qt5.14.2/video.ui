@@ -39,6 +39,111 @@
       <string/>
      </property>
     </widget>
+    <widget class="QWidget" name="volume_widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>280</y>
+       <width>40</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #34343E;
+border-radius: 10px;</string>
+     </property>
+     <widget class="QSlider" name="volume_Slider">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>10</y>
+        <width>16</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider {
+    background-color: transparent;
+}
+
+QSlider::groove:vertical {
+    background: #EA3E3E;
+    width: 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+QSlider::handle:vertical {
+    background: #FFFFFF;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px; /* 将滑块变成圆形 */
+    margin: -5px -8px;
+    border: none;
+}
+
+QSlider::sub-page:vertical {
+    background: #494952;
+    border: none;
+}
+
+QSlider::add-page:vertical {
+    background: #EA3E3E;
+    border: none;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="volume_label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>97</y>
+        <width>40</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>10</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="menu_widget" native="true">
     <property name="geometry">

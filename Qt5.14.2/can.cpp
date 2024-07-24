@@ -54,14 +54,14 @@ void can::bandRateItemInit()
 {
     const QList<int> rates = {
         10000, 20000, 50000, 125000, 156250,
-        250000, 500000, 800000, 1000000
+        250000, 500000, 700000 , 800000, 1000000
     };
 
     for (int rate : rates)
         ui->rate->addItem(QString::number(rate), rate);
 
     /* 默认初始化以1000000比特率 */
-    ui->rate->setCurrentIndex(4);
+    ui->rate->setCurrentIndex(7);
 }
 
 

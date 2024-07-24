@@ -21,6 +21,10 @@ private slots:
     void on_start_pause_clicked();
     void handleMPlayerOutput();
     void handleMPlayerError();
+    void on_file_list_clicked();
+    void on_next_clicked();
+    void on_previous_clicked();
+    void on_volume_Slider_valueChanged(int value);
 
 private:
     Ui::video *ui;
@@ -30,9 +34,10 @@ private:
     QString defaultVideoPath;
     QStringList videoFiles;
     int currentIndex;
+    QTimer *volume_timer;
 
     void mousePressEvent(QMouseEvent *event);
-    void loadMusicFiles();
+    void loadvideoFiles();
     void playVideo(const QString &filePath);
 };
 

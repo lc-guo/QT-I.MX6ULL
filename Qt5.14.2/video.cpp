@@ -12,13 +12,13 @@ video::video(QWidget *parent)
 
     mplayerProcess = new QProcess(this);
 
-    // 初始化默认音乐路径
+    // 初始化默认视频路径
     defaultVideoPath = "/video";
     currentFilePath = "";
     currentIndex = -1;
 
     // 获取所有视频文件
-    loadMusicFiles();
+    loadvideoFiles();
 
     connect(mplayerProcess, &QProcess::readyReadStandardOutput, this, &video::handleMPlayerOutput);
     connect(mplayerProcess, &QProcess::readyReadStandardError, this, &video::handleMPlayerError);
@@ -26,6 +26,16 @@ video::video(QWidget *parent)
     // 初始化播放按钮
     ui->start_pause->setIcon(QIcon(":/images/pause.svg"));
     ui->start_pause->setIconSize(QSize(48, 48));
+
+    // 初始化音量播放器
+    volume_timer = new QTimer(this);
+    connect(volume_timer, &QTimer::timeout, this, [this]() {
+            volume_timer->stop();
+            ui->volume_widget->setVisible(false);
+        });
+    ui->volume_Slider->setValue(80);
+    ui->volume_label->setText("80%");
+    ui->volume_widget->setVisible(false);
 
 }
 
@@ -36,7 +46,7 @@ video::~video()
 }
 
 
-void video::loadMusicFiles()
+void video::loadvideoFiles()
 {
     QStringList filters;
     filters << "*.mp4";
@@ -162,4 +172,72 @@ void video::on_video_back_clicked()
 
     MainWindow *m = new MainWindow();
     m->show();
+}
+
+void video::on_file_list_clicked()
+{
+    printf("on_file_list_clicked\r\n");
+
+#ifdef __arm__
+    currentFilePath = QFileDialog::getOpenFileName(this, "Open File", defaultVideoPath, "Music(*.mp4)");
+#else
+    currentFilePath = QFileDialog::getOpenFileName(this, "Open File", "./music", "Music(*.mp4)");
+#endif
+
+    if (!currentFilePath.isEmpty()) {
+        qDebug() << currentFilePath << endl;
+        currentIndex = videoFiles.indexOf(currentFilePath);
+        playVideo(currentFilePath);
+    }
+}
+
+void video::on_next_clicked()
+{
+    printf("on_next_clicked\r\n");
+
+    if (videoFiles.isEmpty()) {
+        QMessageBox::warning(this, "No Video", "No video files found in the default directory.");
+        return;
+    }
+
+    currentIndex = (currentIndex + 1) % videoFiles.size();
+
+    currentFilePath = videoFiles.at(currentIndex);
+    playVideo(currentFilePath);
+}
+
+void video::on_previous_clicked()
+{
+    printf("on_previous_clicked\r\n");
+
+    if (videoFiles.isEmpty()) {
+        QMessageBox::warning(this, "No Video", "No video files found in the default directory.");
+        return;
+    }
+
+    currentIndex = (currentIndex - 1 + videoFiles.size()) % videoFiles.size();
+
+    currentFilePath = videoFiles.at(currentIndex);
+    playVideo(currentFilePath);
+}
+
+void video::on_volume_Slider_valueChanged(int value)
+{
+    printf("on_volume_Slider_valueChanged, %d\r\n", value);
+    ui->volume_label->setText(QString("%1%").arg(value));
+#ifdef __arm__
+    // 将滑块的值转换为音量百分比
+    int volume = value;
+
+    // 发送音量调节命令给 mplayer
+    QString command = QString("volume %1 1\n").arg(volume);
+    mplayerProcess->write(command.toUtf8());
+
+    QByteArray byteArray = QString("amixer sset Speaker %1,%1").arg((float)volume*127.0/100.0).toUtf8();
+    const char* cmd = byteArray.data();
+
+    system(cmd);
+
+#endif
+    volume_timer->start(2000);
 }

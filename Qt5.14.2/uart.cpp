@@ -11,6 +11,12 @@ uart::uart(QWidget *parent)
     this->setWindowTitle("UART");
     this->setFixedSize(800,480);
 
+#if __arm__
+    system("cd /lib/modules/4.1.15");
+    system("depmod");
+    system("modprobe ch341.ko");
+#endif
+
     serialPort = new QSerialPort(this);
     ui->send->setEnabled(false);
 
@@ -108,6 +114,10 @@ void uart::on_uart_back_clicked()
 {
     printf("on_uart_back_clicked\r\n");
     serialPort->close();
+
+#if __arm__
+    system("rmmod ch341.ko");
+#endif
 
     this->close();
     MainWindow *m = new MainWindow();
