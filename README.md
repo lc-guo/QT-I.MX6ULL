@@ -1,5 +1,29 @@
 # 基于 QT 的嵌入式 Linux 驱动综合测试及应用平台
 
+## 0、简介
+
+本项目是以 I.MX6ULL 为硬件平台，基于 Qt 搭建的用于 Linux 各类设备驱动及应用的综合测试平台，包括 platform、I2C、SPI 和 V4L2 等设备驱动框架测试。
+
+目前已经完成如下所示 10+ 应用：
+
+1. UVC 相机
+2. 画图板
+3. 姿态角展示
+4. 环境光监测
+5. ADC 采集
+6. 设置
+7. CAN 接收测试
+8. UART 接收测试
+9. 音乐播放器
+10. 视频播放器（BUG版）
+11. GPIO 输出测试
+12. ...
+
+
+视频演示
+
+[基于 Qt 的嵌入式 Linux 驱动综合测试及应用平台](https://www.bilibili.com/video/BV1fpb1edEFf/?share_source=copy_web&vd_source=7bc1e04febb8764f047d17d062e1688d)
+
 ## 1、拉取仓库代码
 
 拉取仓库代码，文件系统大概 550MB，因此需要拉取大文件，按照下面步骤操作即可
@@ -14,6 +38,10 @@ git lfs install
 # 拉取大文件
 git lfs pull
 ```
+
+由于 GitHub LFS 免费用户每月只有 1GB 下载配额（果然无法白嫖），因此项目大家也可以在如下的百度云盘链接中下载
+
+[QT-I.MX6ULL](https://pan.baidu.com/s/1xRJXqCw2X0s4M2jTYnzlpQ?pwd=cxmi)
 
 ## 2、制作 SD 卡启动盘
 
@@ -106,6 +134,10 @@ sudo cp kernel/* tempdir/
 sudo umount tempdir
 ```
 
+Linux 内核版本为 4.1.15 ，是在 NXP 官方 MCIMX6ULL-EVK 开发板上修改得到的，具体可以学习正点原子的教程
+
+[nxp-imx/linux-imx at imx_4.1.15_2.0.0_ga](https://github.com/nxp-imx/linux-imx/tree/imx_4.1.15_2.0.0_ga)
+
 将 rootfs 目录中的根文件系统拷贝到 SD 卡的第三个分区
 
 ```bash
@@ -121,15 +153,15 @@ sudo cp -r rootfs/* tempdir/
 sudo umount tempdir
 ```
 
+根文件系统由 BusyBox 构建，已经移植好了 Qt5.14.2、tslib、MPlayer 和 一些硬件驱动，所有使用到的驱动全部在根文件系统 `/lib/modules/4.1.15/` 目录下，Qt5.14.2 和 tslib 库位于 `/usr/lib` 目录下
+
 ## 3、从 SD 卡启动开发板
 
 将启动方式拨码开关设置为从SD卡启动，插入SD卡然后打开电源，观察终端输出，一切正常会自动启动桌面程序
 
-## 4、视频演示
+如果无法启动，应用程序位于 `/qt/` 目录，名为 `IMX6ULL` ，可以尝试手动启动
 
-[基于 Qt 的嵌入式 Linux 驱动综合测试及应用平台](https://www.bilibili.com/video/BV1fpb1edEFf/?share_source=copy_web&vd_source=7bc1e04febb8764f047d17d062e1688d)
-
-## 5、参考资料
+# 4、参考资料
 
 1.  [IMX6ULL-QT项目之mplayer音乐播放器](https://blog.csdn.net/qq_40792874/article/details/120564555)
 2. [【正点原子】I.MX6U嵌入式Qt开发指南V1.1](https://gitee.com/GuangzhouXingyi/imx6ull-document)
